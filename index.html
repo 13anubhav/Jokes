@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>API examples</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <!-- Chuck Norris jokes -->
+  <div class="display-4 text-center">Chuck Norris Jokes</div>
+  <h5 style="text-align: center;">(By Anubhav)</h5>
+  <div class="APIContainer">
+    <div class="jokeContainer">
+      <img class="img-thumbnail" id="jokeIcon">
+      <div>
+        <a class="h2 jokeTitle" href="#">Want to hear a joke?</a>
+        <p id="joke"></p>
+      </div>
+      <button class="btn btn-primary" id="buttonGetJoke">Yes!</button>
+    </div>
+  </div>
+
+<!-- 
+  <div class="display-4 text-center">Chuck Norris jokes</div>
+  <div class="APIContainer">
+    <div class="jokeContainer">
+      <img class="img-thumbnail" id="jokeIcon">
+      <div>
+        <a class="h2 jokeTitle" href="#">Want to hear a joke?</a>
+        <p id="chat"></p>
+      </div>
+      <button class="btn btn-primary" id="buttonGetJoke">Yes!</button>
+    </div>
+  </div>
+   -->
+  </div>
+
+<script>
+
+
+(function onLoad()
+{
+    // set a function for each button
+    setButtonFunctions();
+
+    // fetch from each API when the page loads
+    getJoke();
+    getCurrencyExchangeRates();
+    //getLatestCOVID19Data();
+})();
+
+function setButtonFunctions()
+{
+    document.getElementById('buttonGetJoke').onclick = getJoke;
+    document.getElementById('buttonCurrency').onclick = getCurrencyExchangeRates;
+    document.getElementById('buttonGetJoke').onclick = getJoke;
+   
+}
+
+// Chuck Norris jokes
+
+async function getJoke()
+{
+    await fetch("https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random", {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "matchilling-chuck-norris-jokes-v1.p.rapidapi.com",
+            "x-rapidapi-key": 'c3e7e0f9a2msh9541025fef72972p19b90ejsn2b4a44807bbe',
+            "accept": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log("Chuck Norris API object:");
+        console.log(response);
+        console.log("\n");
+
+        // display data
+        document.getElementById('joke').innerHTML = response.value;
+        document.getElementById('jokeIcon').src = response.icon_url;
+        document.getElementsByClassName('jokeTitle')[0].href = response.url;
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
+
+</script>
+
+
+  <!-- <script src="./js/main.js" type="module"></script> -->
+</body>
+
+</html>
